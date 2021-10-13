@@ -1,0 +1,9 @@
+{
+    "require": {
+        "php-ffmpeg/php-ffmpeg": "^0.18.0",
+        "league/commonmark": "^2.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    }
+}
