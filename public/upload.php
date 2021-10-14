@@ -126,12 +126,12 @@ $page_title = 'Upload';
 
                                 createThumbnail($folder, $entry, $videoName);
                                 pg_query_params($client, 'UPDATE stuff.videos SET name=$1, visibility=$2 WHERE id=$3', array($_POST['video_name'], $visibility, $entry['id']));
-
-                                header('Location: /');
-                                exit();
                             }
 
                             pg_free_result($result);
+
+                            header('Location: /');
+                            exit();
                         } else {
                             echo "<p>You either didnt upload video or the video codec is not supported yet! (" . $codex . ")</p>";
                         }
