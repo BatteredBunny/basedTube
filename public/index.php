@@ -47,12 +47,14 @@ $page_title = $BRANDING;
                 $current_page = $_GET['page'];
             }
 
-            if ($current_page > $total_pages) { // If invalid page
-                header('Location: /?page=' . $total_pages);
-                exit();
-            } else if ($current_page < 1) {
-                header('Location: /?page=1');
-                exit();
+            if ($video_amount != 0) {
+                if ($current_page > $total_pages) { // If invalid page
+                    header('Location: /?page=' . $total_pages);
+                    exit();
+                } else if ($current_page < 1) {
+                    header('Location: /?page=1');
+                    exit();
+                }
             }
 
             if (isset($_GET['page']) && $_GET['page'] > 0) {

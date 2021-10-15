@@ -1,9 +1,9 @@
 ---
 version: "3.8"
 services:
-    keyed.sh:
+    keyed:
         image: ayay2021/keyed.sh
-        container_name: keyed.sh
+        container_name: keyed
         ports:
             - 80:80
             - 443:443

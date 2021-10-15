@@ -27,10 +27,10 @@ RUN composer install
 
 # Apache configs
 RUN a2enmod rewrite ssl
-RUN rm /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+RUN a2dissite 000-default
 
-COPY configs/main-default.conf /etc/apache2/sites-available/main.conf
-COPY configs/cdn-default.conf /etc/apache2/sites-available/cdn.conf
+COPY configs/main.conf /etc/apache2/sites-available/main.conf
+COPY configs/cdn.conf /etc/apache2/sites-available/cdn.conf
 RUN a2ensite main cdn
 
 # For some reason the mounted volume needs special permissions
