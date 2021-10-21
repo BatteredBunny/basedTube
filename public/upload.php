@@ -1,5 +1,5 @@
 <?php
-require('../php/header.php');
+require('/var/www/php/header.php');
 $page_title = 'Upload';
 ?>
 
@@ -11,7 +11,7 @@ $page_title = 'Upload';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="/manifest.json">
-    <?php include('../php/meta/icons.php')?>
+    <?php include('/var/www/php/meta/icons.php')?>
 
     <!-- normal meta info -->
     <title><?php echo $page_title?></title>
@@ -29,7 +29,7 @@ $page_title = 'Upload';
     <meta name="twitter:description" content="Upload new video" />
     <meta name="twitter:image" content="/favicon.ico" />
 
-    <?php require('../php/page-deps.php') ?>
+    <?php require('/var/www/php/page-deps.php') ?>
 
     <script>
         function encodingWarning() {
@@ -40,7 +40,7 @@ $page_title = 'Upload';
 
 <body>
     <?php
-    require('../php/navbar.php');
+    require('/var/www/php/navbar.php');
     ?>
 
     <div class="container mt-4 mb-4">
@@ -110,7 +110,7 @@ $page_title = 'Upload';
                             if ($result) {
                                 // Gets newly created video ID
                                 $entry = pg_fetch_array($result);
-                                $folder = "../cdn/" .  $entry['id'] . "/";
+                                $folder = "/var/www/cdn/" .  $entry['id'] . "/";
 
                                 // Moves and renames video file
                                 mkdir($folder, 0775, true);
@@ -179,9 +179,9 @@ $page_title = 'Upload';
                 </label>
             </div>
             <?php if (isLoggedIn($client)) {
-                require('../php/upload-visibility.php');
+                require('/var/www/php/upload-visibility.php');
             } else {
-                require('../php/upload-visibility2.php');
+                require('/var/www/php/upload-visibility2.php');
                 echo '<p class="text-danger">Warning! you are logged out.</p>';
             }
             ?>

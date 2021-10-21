@@ -1,7 +1,7 @@
 <?php
-    require('../vendor/autoload.php');
-    require('../php/functions.php');
-    require('../php/db.php');
+    require('/var/www/vendor/autoload.php');
+    require('/var/www/php/functions.php');
+    require('/var/www/php/db.php');
     session_start();
 
     $CDN_DOMAIN = getenv('CDN_DOMAIN');

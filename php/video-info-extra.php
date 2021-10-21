@@ -11,7 +11,7 @@
 
     <?php
     if (isLoggedIn($client) && $entry['author'] == $_SESSION['user-id']) {
-        require('../php/video-forms.php');
+        require('/var/www/php/video-forms.php');
     }?>
 
     <button class="button-icon bg-transparent" onclick="share('<?php echo $MAIN_DOMAIN . '/watch?v=' . $_GET['v']; ?>')">

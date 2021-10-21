@@ -14,7 +14,7 @@
     </video> 
 
     <?php 
-    require('../php/video-info.php');
-    require('../php/video-info-extra.php');
+    require('/var/www/php/video-info.php');
+    require('/var/www/php/video-info-extra.php');
     ?>
 </div>

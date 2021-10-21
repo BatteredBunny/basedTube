@@ -1,5 +1,5 @@
 <?php
-require('../php/db.php');
+require('/var/www/php/db.php');
 
 $result = pg_query('SELECT id FROM stuff.videos WHERE visibility=0 ORDER BY random() LIMIT 1');
 

@@ -1,5 +1,5 @@
 <?php
-require('../php/header.php');
+require('/var/www/php/header.php');
 $page_title = 'Account deletion';
 ?>
 
@@ -10,17 +10,17 @@ $page_title = 'Account deletion';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php include('../php/meta/icons.php')?>
+    <?php include('/var/www/php/meta/icons.php')?>
     <meta name="theme-color" content="#212529">
     <title>Settings</title>
 
-    <?php require('../php/page-deps.php') ?>
+    <?php require('/var/www/php/page-deps.php') ?>
     
 </head>
 
 <body>
     <?php
-    require('../php/navbar.php');
+    require('/var/www/php/navbar.php');
     ?>
 
     <div class="container mt-4 mb-4">

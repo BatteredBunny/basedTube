@@ -1,11 +1,11 @@
 <?php
-require('../php/header.php');
-require('../php/time_elapsed.php');
+require('/var/www/php/header.php');
+require('/var/www/php/time_elapsed.php');
 $page_title = "";
 
 // Makes sure its a valid video
 if (isset($_GET['v'])) {
-    $result = pg_query_params($client, 'SELECT "name", "views", "date", "id", "file_name", "description", "author", "visibility", "loop_video", "file_id" FROM stuff.videos WHERE id=$1', array($_GET['v']));
+    $result = pg_query_params($client, 'SELECT "name", "views", "date", "id", "file_name", "description", "author", "visibility", "loop_video", "file_id", "thumbnail_id" FROM stuff.videos WHERE id=$1', array($_GET['v']));
 
     if ($result) {
         $entry = pg_fetch_array($result);
@@ -30,55 +30,46 @@ if (isset($_GET['v'])) {
         exit();
     }
 
+    $authorName = htmlspecialchars(getUserById($client, $entry['author']));
+    $thumbnail = getVideoThumbnail($entry);
+
     pg_free_result($result);
 } ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<title><?php echo htmlspecialchars($entry['name']) ?> by <?php echo $authorName ?></title>
+<meta name="theme-color" content="#212529">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="/manifest.json">
-    <?php include('../php/meta/icons.php') ?>
+<!-- facebook meta info -->
+<meta property="og:title" content="<?php echo htmlspecialchars($entry['name']) ?> by <?php echo $authorName ?>" />
+<meta property="og:description" content="<?php echo htmlspecialchars($entry['description']) ?>">
+<meta property="og:type" content="video" />
+<meta property="og:video" content="<?php
+                                    echo $CDN_DOMAIN . "/" . $entry['id'] . "/";
 
-    <!-- normal meta info -->
-    <title><?php echo $entry['name'] ?></title>
-    <meta name="description" content="<?php echo $entry['description'] ?>">
-    <meta name="author" content="<?php echo htmlspecialchars(getUserById($client, $entry['author'])) ?>">
-    <meta name="theme-color" content="#212529">
+                                    # Legacy video file location code
+                                    if ($entry['id'] != $entry['file_id']) {
+                                        echo $entry['file_id'] . "/";
+                                    };
 
-    <!-- facebook meta info -->
-    <meta property="og:title" content="<?php echo $entry['name'] ?>" />
-    <meta property="og:description" content="<?php echo $entry['description'] ?>">
-    <meta property="og:type" content="video" />
-    <meta property="og:video" content="<?php
-                                        echo $CDN_DOMAIN . "/" . $entry['id'] . "/";
+                                    echo $entry['file_name'] ?>" />
+<meta property="og:url" content="/watch?v=<?php echo htmlspecialchars($_GET['v']) ?>" />
 
-                                        # Legacy video file location code
-                                        if ($entry['id'] != $entry['file_id']) {
-                                            echo $entry['file_id'] . "/";
-                                        };
+<!-- twitter meta info -->
+<meta name="twitter:title" content="<?php echo htmlspecialchars($entry['name']) ?> by <?php echo $authorName ?>" />
+<meta name="twitter:description" content="<?php echo htmlspecialchars($entry['description']) ?>" />
 
-                                        echo $entry['file_name'] ?>" />
-    <meta property="og:url" content="/watch?v=<?php echo htmlspecialchars($_GET['v']) ?>" />
+<link type="application/json+oembed" href="/api/video_oembed?id=<?php echo $_GET['v']?>" />
+<?php require('/var/www/php/page-deps.php') ?>
 
-    <!-- twitter meta info -->
-    <meta name="twitter:title" content="<?php echo $entry['name'] ?>" />
-    <meta name="twitter:description" content="<?php echo $entry['description'] ?>" />
-
-    <?php require('../php/page-deps.php') ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/video.js@7/dist/video.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css">
-    <script src="/js/share.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/video.js@7/dist/video.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css">
+<script src="/js/share.js"></script>
 </head>
 
 <body>
-    <?php require('../php/navbar.php') ?>
+    <?php require('/var/www/php/navbar.php') ?>
 
     <div class="container-fluid mt-4 mb-5">
         <?php
@@ -134,7 +125,7 @@ if (isset($_GET['v'])) {
         }
 
         // Video player
-        require('../php/video_player.php');
+        require('/var/www/php/video_player.php');
         ?>
 
         <!-- Comment making form -->
@@ -179,7 +170,7 @@ if (isset($_GET['v'])) {
 
                     // Form to delete comment
                     if (isLoggedIn($client) && $entry['author'] == $_SESSION['user-id']) {
-                        require('../php/comment-deletion-form.php');
+                        require('/var/www/php/comment-deletion-form.php');
                     }
 
                     echo "</div>

@@ -1,6 +1,6 @@
 <?php
-require('../php/header.php');
-require('../php/time_elapsed.php');
+require('/var/www/php/header.php');
+require('/var/www/php/time_elapsed.php');
 $page_title = 'Thread';
 
 use League\CommonMark\CommonMarkConverter;
@@ -43,7 +43,7 @@ if (isset($_POST['comment']) && isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include('../php/meta/icons.php')?>
+    <?php include('/var/www/php/meta/icons.php')?>
 
     <!-- normal meta info -->
     <title><?php echo $page_title?></title>
@@ -60,11 +60,11 @@ if (isset($_POST['comment']) && isset($_GET['id'])) {
     <meta name="twitter:description" content="Thread" />
     <meta name="twitter:image" content="/favicon.ico" />
 
-    <?php require('../php/page-deps.php') ?>
+    <?php require('/var/www/php/page-deps.php') ?>
 </head>
 
 <body>
-    <?php require('../php/navbar.php') ?>
+    <?php require('/var/www/php/navbar.php') ?>
 
     <div class="container-fluid mt-4 mb-4">
 

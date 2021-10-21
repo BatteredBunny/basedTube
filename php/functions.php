@@ -103,7 +103,7 @@ function getUserAvatar($id, $res, $client)
         return $DEFAULT;
     }
 
-    if (file_exists("../cdn/avatar/" . $id . "/avatar.webp")) {
+    if (file_exists("/var/www/cdn/avatar/" . $id . "/avatar.webp")) {
         return $CDN_DOMAIN . "/avatar" . $id . "/avatar.webp";
     } else {
         $result = pg_query_params($client, "SELECT avatar_id FROM stuff.users WHERE id=$1", array($id));
@@ -111,7 +111,7 @@ function getUserAvatar($id, $res, $client)
         if ($result) {
             $entry = pg_fetch_array($result);
 
-            if (file_exists("../cdn/avatar/" . $id . "/" . $entry['avatar_id'] . "/avatar.webp")) {
+            if (file_exists("/var/www/cdn/avatar/" . $id . "/" . $entry['avatar_id'] . "/avatar.webp")) {
                 if ($res == 0) {
                     return $CDN_DOMAIN . '/avatar/' . $id . "/" . $entry['avatar_id'] . '/avatar.webp';
                 } else {
@@ -152,7 +152,7 @@ function deleteVideo($video_id, $client)
 
         // If admin can delete any video
         if (isAdmin($client, $_SESSION['user-id'])) {
-            deleteDir('../cdn/' . $video_id . '/'); // Removes all video files
+            deleteDir('/var/www/cdn/' . $video_id . '/'); // Removes all video files
 
             pg_query_params($client, 'DELETE FROM stuff.comments WHERE video=$1', array($video_id)); // Deletes comments
             pg_query_params($client, 'DELETE FROM stuff.videos WHERE id=$1', array($video_id)); // Deletes video
@@ -165,7 +165,7 @@ function deleteVideo($video_id, $client)
                 $entry = pg_fetch_array($result);
 
                 if ($entry['author'] == $_SESSION['user-id']) { // Makes sure requester made the video
-                    deleteDir('../cdn/' . $video_id . '/'); // Removes all video files
+                    deleteDir('/var/www/cdn/' . $video_id . '/'); // Removes all video files
 
                     pg_query_params($client, 'DELETE FROM stuff.comments WHERE video=$1', array($video_id)); // Deletes comments
                     pg_query_params($client, 'DELETE FROM stuff.videos WHERE id=$1', array($video_id)); // Deletes video
@@ -222,11 +222,11 @@ function deleteUser($user_id, $client)
                 deleteVideo($entry['id'], $client); // This function also deletes all comments on videos
             }
 
-            unlink('../cdn/avatar/' . $user_id . '/avatar.webp');
-            unlink('../cdn/avatar/' . $user_id . '/avatar80x80.webp');
-            unlink('../cdn/avatar/' . $user_id . '/avatar40x40.webp');
+            unlink('/var/www/cdn/avatar/' . $user_id . '/avatar.webp');
+            unlink('/var/www/cdn/avatar/' . $user_id . '/avatar80x80.webp');
+            unlink('/var/www/cdn/avatar/' . $user_id . '/avatar40x40.webp');
 
-            rmdir('../cdn/avatar/' . $user_id . '/');
+            rmdir('/var/www/cdn/avatar/' . $user_id . '/');
 
             pg_free_result($result);
 
@@ -351,7 +351,7 @@ function changeAvatar($client, $user_id)
 
                             // Checks if it has right codec to detected renamed files
                             if ($codec == "png" || "mjpeg" || "webp" || "gif" || "apng") {
-                                $base_folder = "../cdn/avatar/" .  $user_id . "/";
+                                $base_folder = "/var/www/cdn/avatar/" .  $user_id . "/";
 
                                 if (!is_dir($base_folder)) { // If avatar folder doesnt exist yet, creats it
                                     mkdir($base_folder, 0775, true);
@@ -444,7 +444,7 @@ function get_pagination(int $current_page, string $page_args, int $video_amount)
 function getVideoThumbnail($entry)
 {
     global $CDN_DOMAIN;
-    $folder = "../cdn/" . $entry['id'] . "/";
+    $folder = "/var/www/cdn/" . $entry['id'] . "/";
 
     if ($entry['id'] == $entry['file_id'] || $entry['file_id'] == $entry['thumbnail_id']) {
         return $CDN_DOMAIN . "/" . $entry['id'] . "/thumbnail.webp";

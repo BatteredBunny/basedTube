@@ -5,11 +5,9 @@ services:
         image: ayay2021/keyed.sh
         container_name: keyed
         ports:
-            - 80:80
-            - 443:443
+            - 800:80
         volumes:
             - /run/media/lain/data/server_configs/basedtube/cdn:/var/www/cdn
-            - /run/media/lain/data/server_configs/basedtube/letsencrypt:/etc/letsencrypt
         environment:
             - CDN_DOMAIN=https://cdn.keyed.sh
             - MAIN_DOMAIN=https://keyed.sh

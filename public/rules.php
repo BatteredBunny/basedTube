@@ -1,5 +1,5 @@
 <?php
-require('../php/header.php');
+require('/var/www/php/header.php');
 $page_title = 'Rules';
 ?>
 
@@ -11,7 +11,7 @@ $page_title = 'Rules';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
-    <?php include('../php/meta/icons.php')?>
+    <?php include('/var/www/php/meta/icons.php')?>
 
     <!-- normal meta info -->
     <title><?php echo $page_title?></title>
@@ -29,11 +29,11 @@ $page_title = 'Rules';
     <meta name="twitter:description" content="Rules of this site" />
     <meta name="twitter:image" content="/favicon.ico" />
 
-    <?php require('../php/page-deps.php') ?>
+    <?php require('/var/www/php/page-deps.php') ?>
 </head>
 
 <body>
-    <?php require('../php/navbar.php')?>
+    <?php require('/var/www/php/navbar.php')?>
 
     <div class="container-fluid mt-4 mb-4">
         <p class="text-center">1. Be decent</p>

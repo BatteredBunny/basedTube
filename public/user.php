@@ -1,6 +1,6 @@
 <?php
-require('../php/header.php');
-require('../php/time_elapsed.php');
+require('/var/www/php/header.php');
+require('/var/www/php/time_elapsed.php');
 $total_pages_title = "";
 ?>
 
@@ -12,7 +12,7 @@ $total_pages_title = "";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="/manifest.json">
-    <?php include('../php/meta/icons.php')?>
+    <?php include('/var/www/php/meta/icons.php')?>
 
     <!-- normal meta info -->
     <title>User</title>
@@ -29,11 +29,11 @@ $total_pages_title = "";
     <meta name="twitter:description" content="User page" />
     <meta name="twitter:image" content="/favicon.ico" />
 
-    <?php require('../php/page-deps.php') ?>
+    <?php require('/var/www/php/page-deps.php') ?>
 </head>
 
 <body>
-    <?php require('../php/navbar.php') ?>
+    <?php require('/var/www/php/navbar.php') ?>
     <div class="container-fluid mt-5 mb-4">
         <?php
         if (isset($_GET['name'])) {
@@ -90,12 +90,12 @@ $total_pages_title = "";
             $views = getViewsAmount($client, $id);
             $views_total = getViewsTotal();
 
-            require('../php/user-profile.php');
+            require('/var/www/php/user-profile.php');
 
             echo '<div class="videos">';
 
             while ($entry = pg_fetch_array($result)) {
-                require('../php/video.php');
+                require('/var/www/php/video.php');
             }
 
             pg_free_result($result);

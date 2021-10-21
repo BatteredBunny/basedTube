@@ -29,9 +29,9 @@
 
       if (isLoggedIn($client)) {
         $username = htmlspecialchars(getLoggedInUser($client));
-        require('../php/navbar/logged-in.php');
+        require('/var/www/php/navbar/logged-in.php');
       } else {
-        require('../php/navbar/logged-out.php');
+        require('/var/www/php/navbar/logged-out.php');
       }
       ?>
     </div>
