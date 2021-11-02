@@ -7,5 +7,5 @@
     $CDN_DOMAIN = getenv('CDN_DOMAIN');
     $MAIN_DOMAIN = getenv('MAIN_DOMAIN');
     $BRANDING = getenv('BRANDING');
-    $SITE_VERSION = getenv('SITE_VERSION');
+    $SITE_VERSION = 'v1.53'
 ?>

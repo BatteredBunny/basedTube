@@ -12,7 +12,9 @@ services:
             - CDN_DOMAIN=https://cdn.keyed.sh
             - MAIN_DOMAIN=https://keyed.sh
             - BRANDING=keyed.sh
-            - SITE_VERSION=v1.51
+            - POSTGRES_PASSWORD=123
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=tube
         restart: always
         depends_on:
             - db
@@ -23,5 +25,6 @@ services:
         ports:
             - 5432:5432
         environment:
-            POSTGRES_PASSWORD: 123
+            - POSTGRES_PASSWORD=123
+            - POSTGRES_USER=postgres
         restart: always
